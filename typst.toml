@@ -9,7 +9,5 @@ authors = [
 ]
 license = "MIT"
 description = "A package for drawing quantum error correction codes with Typst."
-
-[template]
-path = "template"
-entrypoint = "main.typ"
+categories = ["visualization"]
+exclude = ["examples/"]

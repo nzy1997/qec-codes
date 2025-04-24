@@ -21,37 +21,26 @@
   }
   surface_code((4, 0),color1:red,color2:green,size:0.5, 15, 7)
   }),caption: [
-  Surface codes examples.
+  Surface code examples.
 ])
+
 #figure(canvas({
   import draw: *
-  let n = 5
-  surface_code((0, 0), n, n, color1: aqua, color2: yellow, type_tag: false, name: "left")
-  surface_code((5, 0), n, n, color1: yellow, color2: aqua, name: "right")
+  surface_code((0, 0), 5, 5, color1: aqua, color2: yellow, type_tag: false, name: "left")
+  surface_code((5, 0), 5, 5, color1: yellow, color2: aqua, type_tag: false, name: "right")
   stabilizer_label((12, 3))
-
   for i in range(5){
-    // let color3 = red
-    if (calc.rem(i, 2) == 0) {
-      let color3 = yellow
-          circle((4+0.5, i - 0.5), radius: 0.1, fill: color3, stroke: none, name: "control" + str(i))
-    line("control" + str(i), (4, i), stroke: color3)
-    line("control" + str(i), (5, i), stroke: color3)
-
-    if i != 0{
-      line("control" + str(i), (5, i - 1), stroke: color3)
-      line("control" + str(i), (4, i - 1), stroke: color3)        
+    let color3 = if (calc.rem(i, 2) == 0) {
+      yellow
+    } else {
+      aqua
     }
-    }else{
-      let color3 = aqua
-          circle((4+0.5, i - 0.5), radius: 0.1, fill: color3, stroke: none, name: "control" + str(i))
-    line("control" + str(i), (4, i), stroke: color3)
-    line("control" + str(i), (5, i), stroke: color3)
-
-    if i != 0{
-      line("control" + str(i), (5, i - 1), stroke: color3)
-      line("control" + str(i), (4, i - 1), stroke: color3)        
-    }
+    circle((4+0.5, i - 0.5), radius: 0.1, fill: color3, stroke: none, name: "control" + str(i))
+    line("control" + str(i), "left_4_" + str(i), stroke: color3)
+    line("control" + str(i), "right_0_" + str(i), stroke: color3)
+    if i != 0 {
+      line("control" + str(i), "left_4_" + str(i - 1), stroke: color3)
+      line("control" + str(i), "right_0_" + str(i - 1), stroke: color3)        
     }
   }
 }),caption: [
@@ -85,5 +74,5 @@
   vertex_code_label((0, 0),6,1,((-1,0),(0,4),(0,3)),((-4,-1),(0,0),(-3,-1)), size: 1)
   stabilizer_label((10, -3))
 }),caption: [
-    A $〚98,8,12〛$ BB code.
+    $〚98,8,12〛$ BB code.
 ])
