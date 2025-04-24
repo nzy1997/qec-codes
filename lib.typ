@@ -55,7 +55,7 @@
   }
 }
 
-#let surface_code_label(loc, size:1, color1:yellow, color2:aqua) = {
+#let stabilizer_label(loc, size:1, color1:yellow, color2:aqua) = {
   import draw: *
   let x = loc.at(0)
   let y = loc.at(1)
@@ -63,7 +63,7 @@
   content((x, y - 1.5*size), box(stroke: black, inset: 10pt, [$Z$ stabilizers],fill: color1, radius: 4pt))
 }
 
-#let toric_code(loc, m, n, size:1,color1:white,color2:gray,line_thickness:1pt,name: "toric") = {
+#let toric_code(loc, m, n, size:1,circle_radius:0.2,color1:white,color2:gray,line_thickness:1pt,name: "toric") = {
   import draw: *
     for i in range(m){
     for j in range(n){
@@ -76,35 +76,41 @@
       let x = loc.at(0) + i * size
       let y = loc.at(1) - j * size
 
-      circle((x + size/2, y), radius: 0.2, fill: color1, stroke: (thickness: line_thickness),name: name + "_point_vertical_" + str(i) +"_" + str(j))
-      circle((x, y - size/2), radius: 0.2, fill: color2, stroke: (thickness: line_thickness),name: name + "_point_horizontal_" + str(i) +"_" + str(j))
+      circle((x + size/2, y), radius: circle_radius, fill: color1, stroke: (thickness: line_thickness),name: name + "_point_vertical_" + str(i) +"_" + str(j))
+      circle((x, y - size/2), radius: circle_radius, fill: color2, stroke: (thickness: line_thickness),name: name + "_point_horizontal_" + str(i) +"_" + str(j))
     }
   }
 }
 
-#let plaquette_code_label(loc, posx,posy, ver_vec, hor_vec, size:1, color1:white, color2:gray, color3:yellow,line_thickness:1pt,name: "plaquette_xcheck") = {
+#let plaquette_code_label(loc, posx,posy, ver_vec, hor_vec, size:1,circle_radius:0.2, color1:white, color2:gray, color3:yellow,line_thickness:1pt,name: "toric") = {
   import draw: *
       let x = loc.at(0) + posx * size
       let y = loc.at(1) - posy * size
-  rect((x, y), (x - size, y - size), fill: color3, stroke: black,name: name)
+  rect((x, y), (x - size, y - size), fill: color3, stroke: black,name: name + "_plaquette")
   
-  circle(name+"_point_vertical_" + str(posx - 1) + "_" + str(posy),radius: 0.2, fill: color1, stroke: (thickness: line_thickness))
-  circle(name+"_point_vertical_" + str(posx - 1) + "_" + str(posy+1),radius: 0.2, fill: color1, stroke: (thickness: line_thickness))
-  circle(name+"_point_horizontal_" + str(posx) + "_" + str(posy),radius: 0.2, fill: color2, stroke: (thickness: line_thickness))
-  circle(name+"_point_horizontal_" + str(posx - 1) + "_" + str(posy),radius: 0.2, fill: color2, stroke: (thickness: line_thickness))
+  circle(name+"_point_vertical_" + str(posx - 1) + "_" + str(posy),radius: circle_radius, fill: color1, stroke: (thickness: line_thickness))
+  circle(name+"_point_vertical_" + str(posx - 1) + "_" + str(posy+1),radius: circle_radius, fill: color1, stroke: (thickness: line_thickness))
+  circle(name+"_point_horizontal_" + str(posx) + "_" + str(posy),radius: circle_radius, fill: color2, stroke: (thickness: line_thickness))
+  circle(name+"_point_horizontal_" + str(posx - 1) + "_" + str(posy),radius: circle_radius, fill: color2, stroke: (thickness: line_thickness))
 
   for (i,j) in ver_vec {
-    circle(name+"_point_vertical_" + str(i+posx) + "_" + str(j+posy),radius: 0.2, fill: color3, stroke: (thickness: line_thickness))
+    circle(name+"_point_vertical_" + str(i+posx) + "_" + str(j+posy),radius: circle_radius, fill: color3, stroke: (thickness: line_thickness))
   }
   for (i,j) in hor_vec {
-    circle(name+"_point_horizontal_" + str(i+posx) + "_" + str(j+posy),radius: 0.2, fill: color3, stroke: (thickness: line_thickness))
+    circle(name+"_point_horizontal_" + str(i+posx) + "_" + str(j+posy),radius: circle_radius, fill: color3, stroke: (thickness: line_thickness))
   }
 }
 
 
-#let vertex_code_label(loc, posx,posy, ver_vec, hor_vec, size:1, color1:white, color2:gray, color3:aqua,line_thickness:1pt,name: "vertex_check") = {
+#let vertex_code_label(loc, posx,posy, ver_vec, hor_vec, size:1, circle_radius:0.2, color1:white, color2:gray, color3:aqua,line_thickness:1pt,name: "toric") = {
   import draw: *
-      let x = loc.at(0) + posx * size
-      let y = loc.at(1) - posy * size
-  // rect((x, y), (x - size, y - size), fill: color3, stroke: black,name: name)
+  let x = loc.at(0) + posx * size
+  let y = loc.at(1) - posy * size
+  rect((x - circle_radius, y - circle_radius), (x + circle_radius, y + circle_radius), fill: color3, stroke: black,name: name + "_vertex")
+
+  for (i,j) in ver_vec {
+    circle(name+"_point_vertical_" + str(i+posx) + "_" + str(j+posy),radius: circle_radius, fill: color3, stroke: (thickness: line_thickness))
+  }
+  for (i,j) in hor_vec {
+    circle(name+"_point_horizontal_" + str(i+posx) + "_" + str(j+posy),radius: circle_radius, fill: color3, stroke: (thickness: line_thickness))}
 }
