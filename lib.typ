@@ -1,6 +1,5 @@
 #import "@preview/cetz:0.2.2": canvas,draw
 
-
 #let steane_code(loc,size:4, color1:yellow, color2:aqua,color3:olive,name: "steane",point_radius:0.1) = {
   import draw: *
   let x = loc.at(0) 
@@ -64,30 +63,48 @@
   content((x, y - 1.5*size), box(stroke: black, inset: 10pt, [$Z$ stabilizers],fill: color1, radius: 4pt))
 }
 
-#let toric_code(loc, m, n, size:1, color1:yellow, color2:aqua, type_tag:true, line_thickness:1pt,name: "toric", open_boundary:true) = {
+#let toric_code(loc, m, n, size:1,color1:white,color2:gray,line_thickness:1pt,name: "toric") = {
   import draw: *
-  // let x_posx = 0
-  // let y_posx = 0
-  // let x_posz = 2
-  // let y_posz = 1
-  // rect((x_posx, y_posx), (x_posx + size, y_posx - size), fill: color2, stroke: black,name: "Xcheck")
-  // content("Xcheck", [$X$])
-  for i in range(m+1){
-    for j in range(n+1){
-      if ((open_boundary == false) or ((i < m) or (j < n))) {
+    for i in range(m){
+    for j in range(n){
+            let x = loc.at(0) + i * size
+      let y = loc.at(1) - j * size
+ rect((x, y), (x + size, y - size), fill: color1, stroke: black,name: name + "_square" + "_" + str(i) + "_" + str(j))
+    }}
+  for i in range(m){
+    for j in range(n){
       let x = loc.at(0) + i * size
-      let y = loc.at(0) - j * size
-      circle((x + size/2, y), radius: 0.2, fill: none, stroke: (thickness: line_thickness),name: name + "_point_vertical_" + str(i) +"_" + str(j))
-      
-      circle((x, y - size/2), radius: 0.2, fill: none, stroke: (thickness: line_thickness),name: name + "_point_horizontal_" + str(i) +"_" + str(j))
+      let y = loc.at(1) - j * size
+
+      circle((x + size/2, y), radius: 0.2, fill: color1, stroke: (thickness: line_thickness),name: name + "_point_vertical_" + str(i) +"_" + str(j))
+      circle((x, y - size/2), radius: 0.2, fill: color2, stroke: (thickness: line_thickness),name: name + "_point_horizontal_" + str(i) +"_" + str(j))
     }
   }
 }
-for i in range(m){
-  for j in range(n){
-    line(name + "_point_vertical_" + str(i) +"_" + str(j), (rel: (-size/2, 0), to: name + "_point_vertical_" + str(i) +"_" + str(j)),name + "_point_horizontal_" + str(i) +"_" + str(j),  stroke: (thickness: line_thickness))
-      line(name + "_point_vertical_" + str(i) +"_" + str(j), (rel: (+size/2, 0), to: name + "_point_vertical_" + str(i) +"_" + str(j)),stroke: (thickness: line_thickness))
-      line(name + "_point_horizontal_" + str(i) +"_" + str(j), (rel: (0, -size/2), to: name + "_point_horizontal_" + str(i) +"_" + str(j)),stroke: (thickness: line_thickness))}
-      }
+
+#let plaquette_code_label(loc, posx,posy, ver_vec, hor_vec, size:1, color1:white, color2:gray, color3:yellow,line_thickness:1pt,name: "plaquette_xcheck") = {
+  import draw: *
+      let x = loc.at(0) + posx * size
+      let y = loc.at(1) - posy * size
+  rect((x, y), (x - size, y - size), fill: color3, stroke: black,name: name)
+  
+  circle(name+"_point_vertical_" + str(posx - 1) + "_" + str(posy),radius: 0.2, fill: color1, stroke: (thickness: line_thickness))
+  circle(name+"_point_vertical_" + str(posx - 1) + "_" + str(posy+1),radius: 0.2, fill: color1, stroke: (thickness: line_thickness))
+  circle(name+"_point_horizontal_" + str(posx) + "_" + str(posy),radius: 0.2, fill: color2, stroke: (thickness: line_thickness))
+  circle(name+"_point_horizontal_" + str(posx - 1) + "_" + str(posy),radius: 0.2, fill: color2, stroke: (thickness: line_thickness))
+
+  for (i,j) in ver_vec {
+    circle(name+"_point_vertical_" + str(i+posx) + "_" + str(j+posy),radius: 0.2, fill: color3, stroke: (thickness: line_thickness))
+  }
+  for (i,j) in hor_vec {
+    circle(name+"_point_horizontal_" + str(i+posx) + "_" + str(j+posy),radius: 0.2, fill: color3, stroke: (thickness: line_thickness))
+  }
 }
+
+
+#let vertex_code_label(loc, posx,posy, ver_vec, hor_vec, size:1, color1:white, color2:gray, color3:aqua,line_thickness:1pt,name: "vertex_check") = {
+  import draw: *
+      let x = loc.at(0) + posx * size
+      let y = loc.at(1) - posy * size
+  // rect((x, y), (x - size, y - size), fill: color3, stroke: black,name: name)
 }

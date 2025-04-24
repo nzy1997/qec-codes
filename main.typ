@@ -54,5 +54,7 @@
 
 #figure(canvas({
   import draw: *
-  toric_code((0, 0), 3, 3, size: 1)
-  }))
+  toric_code((0, 0), 7, 7, size: 1)
+  // plaquette_code_label((0, 0),2,4,((-1,0),(2,1),(1,1)),((0,0),(-1,-2),(-1,-3)), size: 1)
+  // vertex_code_label((0, 0),3,2,((-1,0),(2,1),(1,1)),((0,0),(-1,-2),(-1,-3)), size: 1)
+}))
