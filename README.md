@@ -13,10 +13,6 @@ You can draw a Steane code by calling the `steane_code` function. The name of th
     }
 }))
 ```
-## Qubit names
-To label the qubits, you use the 
-
-## Labels
 
 ## License
 
