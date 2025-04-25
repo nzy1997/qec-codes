@@ -9,10 +9,13 @@ You can draw a Steane code by calling the `steane_code` function. The name of th
   import draw: *
   steane_code((0, 0), size: 3)
     for j in range(7) {
-      content((rel: (0, -0.3), to: "steane" + "_" + str(j+1)), [#(j)])
+      content((rel: (0, -0.3), to: "steane_" + str(j+1)), [#(j)])
     }
 }))
 ```
+![Steane code](examples/steane.svg)
+
+## Surface code
 
 ## License
 
