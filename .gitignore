@@ -1,10 +1,4 @@
-*.jl.*.cov
-*.jl.cov
-*.jl.mem
-/Manifest.toml
-/docs/Manifest.toml
-/docs/build/
-/FEM/
 .DS_Store
 *.pdf
 .vscode/
+temp/

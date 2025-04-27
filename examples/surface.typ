@@ -10,5 +10,5 @@
       content((rel: (0.3, 0.3), to: "surface1" + "_" + str(i) + "_" + str(j)), [#(i*n+j+1)])
     }
   }
-  surface_code((4, 0),color1:red,color2:green,size:0.5, 15, 7)
+  surface_code((4, 0), 15, 7,color1:red,color2:green,size:0.5,type_tag: false)
   })

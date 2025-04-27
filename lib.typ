@@ -82,7 +82,7 @@
   }
 }
 
-#let plaquette_code_label(loc, posx,posy, ver_vec, hor_vec, size:1,circle_radius:0.2, color1:white, color2:gray, color3:yellow,line_thickness:1pt,name: "toric") = {
+#let plaquette_code_label(loc, posx,posy, ver_vec:((-1,0),(-1,1)), hor_vec:((0,0),(-1,0)), size:1,circle_radius:0.2, color1:white, color2:gray, color3:yellow,line_thickness:1pt,name: "toric") = {
   import draw: *
       let x = loc.at(0) + posx * size
       let y = loc.at(1) - posy * size
@@ -102,7 +102,7 @@
 }
 
 
-#let vertex_code_label(loc, posx,posy, ver_vec, hor_vec, size:1, circle_radius:0.2, color1:white, color2:gray, color3:aqua,line_thickness:1pt,name: "toric") = {
+#let vertex_code_label(loc, posx,posy, ver_vec:((-1,0),(0,0)), hor_vec:((0,0),(0,-1)), size:1, circle_radius:0.2, color1:white, color2:gray, color3:aqua,line_thickness:1pt,name: "toric") = {
   import draw: *
   let x = loc.at(0) + posx * size
   let y = loc.at(1) - posy * size
